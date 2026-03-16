@@ -1,0 +1,5 @@
+flask
+flask-cors
+pedalboard
+pydub
+numpy
