@@ -7,277 +7,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg: #0a0a0f;
-    --card: #13131a;
-    --border: #22223a;
-    --accent: #c084fc;
-    --accent2: #818cf8;
-    --text: #f0f0f8;
-    --subtle: #6b6b8a;
-    --success: #34d399;
-    --error: #f87171;
+    --bg: #0a0a0f; --card: #13131a; --border: #22223a;
+    --accent: #c084fc; --accent2: #818cf8;
+    --text: #f0f0f8; --subtle: #6b6b8a;
+    --success: #34d399; --error: #f87171;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--bg); color: var(--text);
     font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 16px;
-    overflow-x: hidden;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 24px 16px; overflow-x: hidden;
   }
-
-  /* Ambient blobs */
   body::before, body::after {
-    content: '';
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-    pointer-events: none;
-    z-index: 0;
+    content: ''; position: fixed; border-radius: 50%;
+    filter: blur(80px); opacity: 0.15; pointer-events: none; z-index: 0;
   }
-  body::before {
-    width: 400px; height: 400px;
-    background: var(--accent);
-    top: -100px; left: -100px;
-  }
-  body::after {
-    width: 300px; height: 300px;
-    background: var(--accent2);
-    bottom: -80px; right: -80px;
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 420px;
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 36px;
-  }
-
+  body::before { width: 400px; height: 400px; background: var(--accent); top: -100px; left: -100px; }
+  body::after  { width: 300px; height: 300px; background: var(--accent2); bottom: -80px; right: -80px; }
+  .container { position: relative; z-index: 1; width: 100%; max-width: 420px; }
+  header { text-align: center; margin-bottom: 36px; }
   header h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 12vw, 72px);
-    letter-spacing: 4px;
+    font-size: clamp(48px, 12vw, 72px); letter-spacing: 4px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; line-height: 1;
   }
-
-  header p {
-    color: var(--subtle);
-    font-size: 13px;
-    font-weight: 300;
-    margin-top: 8px;
-    letter-spacing: 0.5px;
-  }
-
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 28px;
-  }
-
-  /* Drop zone */
+  header p { color: var(--subtle); font-size: 13px; font-weight: 300; margin-top: 8px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
   .drop-zone {
-    border: 2px dashed var(--border);
-    border-radius: 14px;
-    padding: 40px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    position: relative;
+    border: 2px dashed var(--border); border-radius: 14px;
+    padding: 40px 20px; text-align: center; cursor: pointer;
+    transition: all 0.25s ease; position: relative;
   }
-
-  .drop-zone:hover, .drop-zone.dragover {
-    border-color: var(--accent);
-    background: rgba(192, 132, 252, 0.05);
-  }
-
-  .drop-zone input[type="file"] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-  }
-
-  .drop-icon {
-    font-size: 40px;
-    margin-bottom: 12px;
-    display: block;
-    animation: float 3s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-
-  .drop-zone h3 {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-
-  .drop-zone p {
-    font-size: 12px;
-    color: var(--subtle);
-  }
-
-  /* Selected file */
+  .drop-zone:hover, .drop-zone.dragover { border-color: var(--accent); background: rgba(192,132,252,0.05); }
+  .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .drop-icon { font-size: 40px; margin-bottom: 12px; display: block; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  .drop-zone h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .drop-zone p  { font-size: 12px; color: var(--subtle); }
   .file-info {
-    display: none;
-    align-items: center;
-    gap: 12px;
-    background: rgba(192, 132, 252, 0.08);
-    border: 1px solid rgba(192, 132, 252, 0.2);
-    border-radius: 10px;
-    padding: 12px 16px;
-    margin-top: 16px;
+    display: none; align-items: center; gap: 12px;
+    background: rgba(192,132,252,0.08); border: 1px solid rgba(192,132,252,0.2);
+    border-radius: 10px; padding: 12px 16px; margin-top: 16px;
   }
-
   .file-info.show { display: flex; }
-
-  .file-info .file-icon { font-size: 24px; }
-
-  .file-info .file-details { flex: 1; overflow: hidden; }
-  .file-info .file-name {
-    font-size: 13px;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .file-info .file-size { font-size: 11px; color: var(--subtle); }
-
-  .file-info .remove-btn {
-    background: none;
-    border: none;
-    color: var(--subtle);
-    cursor: pointer;
-    font-size: 18px;
-    padding: 4px;
-    transition: color 0.2s;
-  }
-  .file-info .remove-btn:hover { color: var(--error); }
-
-  /* Convert button */
+  .file-icon { font-size: 24px; }
+  .file-details { flex: 1; overflow: hidden; }
+  .file-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-size { font-size: 11px; color: var(--subtle); }
+  .remove-btn { background: none; border: none; color: var(--subtle); cursor: pointer; font-size: 18px; padding: 4px; transition: color 0.2s; }
+  .remove-btn:hover { color: var(--error); }
   .convert-btn {
-    width: 100%;
-    margin-top: 20px;
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
+    width: 100%; margin-top: 20px; padding: 16px; border: none; border-radius: 12px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: white;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    position: relative;
-    overflow: hidden;
+    color: white; font-family: 'DM Sans', sans-serif; font-size: 15px;
+    font-weight: 500; cursor: pointer; transition: all 0.25s ease;
   }
-
-  .convert-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(192, 132, 252, 0.35);
-  }
-
-  .convert-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  /* Progress */
-  .progress-wrap {
-    display: none;
-    margin-top: 20px;
-  }
+  .convert-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(192,132,252,0.35); }
+  .convert-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .progress-wrap { display: none; margin-top: 20px; }
   .progress-wrap.show { display: block; }
-
-  .progress-label {
-    font-size: 12px;
-    color: var(--subtle);
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .progress-bar-bg {
-    height: 4px;
-    background: var(--border);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-
+  .progress-label { font-size: 12px; color: var(--subtle); margin-bottom: 8px; }
+  .progress-bar-bg { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
   .progress-bar-fill {
-    height: 100%;
-    border-radius: 99px;
+    height: 100%; border-radius: 99px;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
-    width: 0%;
-    transition: width 0.4s ease;
-    animation: shimmer 1.5s infinite;
-    background-size: 200% 100%;
+    width: 0%; transition: width 0.6s ease;
   }
-
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-
-  /* Status */
-  .status {
-    margin-top: 16px;
-    padding: 12px 16px;
-    border-radius: 10px;
-    font-size: 13px;
-    display: none;
-    align-items: center;
-    gap: 10px;
-  }
+  .status { margin-top: 16px; padding: 12px 16px; border-radius: 10px; font-size: 13px; display: none; align-items: center; gap: 10px; }
   .status.show { display: flex; }
-  .status.success { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); color: var(--success); }
-  .status.error { background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.2); color: var(--error); }
-
-  /* Settings pill */
+  .status.success { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); color: var(--success); }
+  .status.error   { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.2); color: var(--error); }
   .settings {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding: 12px 16px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 10px;
-    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 20px; padding: 12px 16px;
+    background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid var(--border);
   }
   .settings span { font-size: 12px; color: var(--subtle); }
   .settings strong { font-size: 13px; color: var(--accent); }
-
-  footer {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 11px;
-    color: var(--subtle);
-  }
+  footer { text-align: center; margin-top: 24px; font-size: 11px; color: var(--subtle); }
 </style>
 </head>
 <body>
@@ -286,15 +97,13 @@
     <h1>REVERB</h1>
     <p>Vocal reverb processor · MP4 / M4A → MP3</p>
   </header>
-
   <div class="card">
     <div class="drop-zone" id="dropZone">
-      <input type="file" id="fileInput" accept=".mp4,.m4a,.mov,.aac,.flac,.ogg,.wav,.mp3"/>
+      <input type="file" id="fileInput" accept=".mp4,.m4a,.mov,.aac,.flac,.ogg,.wav,.mp3,.webm"/>
       <span class="drop-icon">🎙️</span>
       <h3>Drop your audio here</h3>
-      <p>or tap to browse · MP4, M4A, MP3 supported</p>
+      <p>or tap to browse · MP4, M4A, MP3 and more</p>
     </div>
-
     <div class="file-info" id="fileInfo">
       <span class="file-icon">🎵</span>
       <div class="file-details">
@@ -303,156 +112,135 @@
       </div>
       <button class="remove-btn" id="removeBtn">✕</button>
     </div>
-
     <div class="settings">
       <span>Reverb preset</span>
       <strong>Vocal Hall · 70%</strong>
     </div>
-
-    <button class="convert-btn" id="convertBtn" disabled>
-      Add Reverb &amp; Download
-    </button>
-
+    <button class="convert-btn" id="convertBtn" disabled>Add Reverb &amp; Download</button>
     <div class="progress-wrap" id="progressWrap">
-      <div class="progress-label">
-        <span id="progressLabel">Processing…</span>
-        <span id="progressPct"></span>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progressFill"></div>
-      </div>
+      <div class="progress-label" id="progressLabel">Uploading…</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
     </div>
-
     <div class="status" id="status"></div>
   </div>
-
   <footer>Your files are deleted from the server immediately after download.</footer>
 </div>
 
 <script>
-  const dropZone   = document.getElementById('dropZone');
-  const fileInput  = document.getElementById('fileInput');
-  const fileInfo   = document.getElementById('fileInfo');
-  const fileName   = document.getElementById('fileName');
-  const fileSize   = document.getElementById('fileSize');
-  const removeBtn  = document.getElementById('removeBtn');
-  const convertBtn = document.getElementById('convertBtn');
-  const progressWrap = document.getElementById('progressWrap');
-  const progressFill = document.getElementById('progressFill');
-  const progressLabel = document.getElementById('progressLabel');
-  const statusEl   = document.getElementById('status');
+  const dropZone    = document.getElementById('dropZone');
+  const fileInput   = document.getElementById('fileInput');
+  const fileInfo    = document.getElementById('fileInfo');
+  const fileName    = document.getElementById('fileName');
+  const fileSize    = document.getElementById('fileSize');
+  const removeBtn   = document.getElementById('removeBtn');
+  const convertBtn  = document.getElementById('convertBtn');
+  const progressWrap= document.getElementById('progressWrap');
+  const progressFill= document.getElementById('progressFill');
+  const progressLabel=document.getElementById('progressLabel');
+  const statusEl    = document.getElementById('status');
 
   let selectedFile = null;
 
-  function formatBytes(b) {
-    if (b < 1024*1024) return (b/1024).toFixed(1) + ' KB';
-    return (b/1024/1024).toFixed(1) + ' MB';
-  }
+  function fmt(b) { return b < 1024*1024 ? (b/1024).toFixed(1)+' KB' : (b/1024/1024).toFixed(1)+' MB'; }
 
   function setFile(file) {
     selectedFile = file;
     fileName.textContent = file.name;
-    fileSize.textContent = formatBytes(file.size);
+    fileSize.textContent = fmt(file.size);
     fileInfo.classList.add('show');
     convertBtn.disabled = false;
     statusEl.className = 'status';
-    statusEl.textContent = '';
   }
-
   function clearFile() {
-    selectedFile = null;
-    fileInput.value = '';
-    fileInfo.classList.remove('show');
-    convertBtn.disabled = true;
+    selectedFile = null; fileInput.value = '';
+    fileInfo.classList.remove('show'); convertBtn.disabled = true;
   }
 
-  fileInput.addEventListener('change', e => {
-    if (e.target.files[0]) setFile(e.target.files[0]);
-  });
-
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) setFile(e.target.files[0]); });
   removeBtn.addEventListener('click', clearFile);
-
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-  dropZone.addEventListener('drop', e => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
-  });
+  dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
 
-  // Fake progress animation while waiting for server
-  let progressTimer = null;
-  function startProgress() {
-    progressWrap.classList.add('show');
-    let pct = 0;
-    progressFill.style.width = '0%';
-    const steps = [
-      [20, 'Converting to WAV…'],
-      [50, 'Applying reverb…'],
-      [80, 'Normalizing audio…'],
-      [92, 'Exporting MP3…'],
-    ];
-    let si = 0;
-    progressLabel.textContent = 'Starting…';
-    progressTimer = setInterval(() => {
-      if (si < steps.length && pct >= steps[si][0] - 1) {
-        progressLabel.textContent = steps[si][1];
-        si++;
-      }
-      if (pct < 92) {
-        pct += 0.8;
-        progressFill.style.width = pct + '%';
-      }
-    }, 200);
-  }
-
-  function finishProgress(success) {
-    clearInterval(progressTimer);
-    progressFill.style.width = '100%';
-    setTimeout(() => progressWrap.classList.remove('show'), 800);
+  function setProgress(pct, label) {
+    progressFill.style.width = pct + '%';
+    progressLabel.textContent = label;
   }
 
   convertBtn.addEventListener('click', async () => {
     if (!selectedFile) return;
-
     convertBtn.disabled = true;
     statusEl.className = 'status';
-    statusEl.textContent = '';
-    startProgress();
-
-    const form = new FormData();
-    form.append('file', selectedFile);
+    progressWrap.classList.add('show');
+    setProgress(5, 'Uploading file…');
 
     try {
-      const res = await fetch('/convert', { method: 'POST', body: form });
+      // Step 1: Upload with XHR so we get real upload progress
+      const jobData = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        const form = new FormData();
+        form.append('file', selectedFile);
 
-      if (!res.ok) {
-        let errMsg = 'Server error';
-        try {
-          const err = await res.json();
-          errMsg = err.error || errMsg;
-        } catch (_) {
-          errMsg = res.status === 413 ? 'File too large (max 200MB)' : 'Server error — try a smaller file';
-        }
-        throw new Error(errMsg);
-      }
+        xhr.upload.addEventListener('progress', e => {
+          if (e.lengthComputable) {
+            const pct = Math.round((e.loaded / e.total) * 50); // upload = 0-50%
+            setProgress(pct, `Uploading… ${fmt(e.loaded)} / ${fmt(e.total)}`);
+          }
+        });
 
-      const blob = await res.blob();
-      const url  = URL.createObjectURL(blob);
-      const a    = document.createElement('a');
-      a.href     = url;
+        xhr.addEventListener('load', () => {
+          if (xhr.status === 200) {
+            resolve(JSON.parse(xhr.responseText));
+          } else {
+            try { reject(new Error(JSON.parse(xhr.responseText).error)); }
+            catch { reject(new Error('Upload failed')); }
+          }
+        });
+        xhr.addEventListener('error', () => reject(new Error('Network error during upload')));
+        xhr.open('POST', '/upload');
+        xhr.send(form);
+      });
+
+      if (jobData.error) throw new Error(jobData.error);
+
+      // Step 2: Process via SSE (server-sent events) so we get step updates
+      setProgress(55, 'Extracting audio…');
+      await new Promise((resolve, reject) => {
+        const es = new EventSource(`/process/${jobData.job_id}?ext=${encodeURIComponent(jobData.ext)}`);
+        es.onmessage = e => {
+          const data = JSON.parse(e.data);
+          if (data.error) { es.close(); reject(new Error(data.error)); return; }
+          if (data.step === 'done') {
+            es.close();
+            setProgress(100, 'Done!');
+            resolve(data.job_id);
+          } else {
+            const stepMap = {
+              'Extracting audio from video...': [60, 'Extracting audio…'],
+              'Applying reverb...':             [75, 'Applying reverb…'],
+              'Normalizing audio...':           [88, 'Normalizing…'],
+              'Exporting MP3...':               [95, 'Exporting MP3…'],
+            };
+            const [pct, label] = stepMap[data.step] || [70, data.step];
+            setProgress(pct, label);
+          }
+        };
+        es.onerror = () => { es.close(); reject(new Error('Processing failed')); };
+      });
+
+      // Step 3: Trigger download
+      const a = document.createElement('a');
+      a.href = `/download/${jobData.job_id}`;
       a.download = selectedFile.name.replace(/\.[^.]+$/, '') + '_reverb.mp3';
       a.click();
-      URL.revokeObjectURL(url);
 
-      finishProgress(true);
       statusEl.innerHTML = '✅ Done! Check your downloads.';
       statusEl.className = 'status success show';
 
     } catch (err) {
-      finishProgress(false);
       statusEl.innerHTML = '❌ ' + err.message;
       statusEl.className = 'status error show';
+      progressWrap.classList.remove('show');
       convertBtn.disabled = false;
     }
   });
