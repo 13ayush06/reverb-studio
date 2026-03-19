@@ -427,8 +427,14 @@
       const res = await fetch('/convert', { method: 'POST', body: form });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Server error');
+        let errMsg = 'Server error';
+        try {
+          const err = await res.json();
+          errMsg = err.error || errMsg;
+        } catch (_) {
+          errMsg = res.status === 413 ? 'File too large (max 200MB)' : 'Server error — try a smaller file';
+        }
+        throw new Error(errMsg);
       }
 
       const blob = await res.blob();
