@@ -1,5 +1,6 @@
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
+from werkzeug.exceptions import RequestEntityTooLarge
 import os, uuid, numpy as np
 from pedalboard import Pedalboard, Reverb
 from pedalboard.io import AudioFile
@@ -7,6 +8,11 @@ from pydub import AudioSegment
 
 app = Flask(__name__)
 CORS(app)
+app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024  # 200MB limit
+
+@app.errorhandler(RequestEntityTooLarge)
+def too_large(e):
+    return jsonify({"error": "File too large. Maximum size is 200MB."}), 413
 
 UPLOAD_FOLDER = "/tmp/reverb_uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
